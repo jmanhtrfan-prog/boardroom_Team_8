@@ -15,12 +15,32 @@ struct LogInView: View {
     
     var body: some View {
         ZStack {
-            // Background Image with fixed aspect ratio
-            Image("Background")
-                .resizable()
-                .frame(width: 460, height: 500) // استخدام القياسات الأصلية
-                .scaledToFit()
-                .position(x: UIScreen.main.bounds.width / 2, y: 199) // مركز الصورة بالنسبة للشاشة
+
+            // Base white background
+            Color.white
+                .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+
+                // Top background image (blended)
+                Image("Background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 460, height: 500)
+                    .clipped()
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.clear,
+                                Color.white
+                            ]),
+                            startPoint: .center,
+                            endPoint: .bottom
+                        )
+                    )
+
+                Spacer()
+            }
             
             VStack(alignment: .leading, spacing: 20) {
                 
@@ -33,15 +53,16 @@ struct LogInView: View {
                     .padding(.horizontal, 24)
                     .multilineTextAlignment(.leading)
                 
-                // Job Number Field
+                // Job Number Field (توسيع البوكس فقط)
                 TextField("Enter your job number", text: $jobNumber)
                     .padding()
+                    .frame(maxWidth: .infinity) // ✅ التوسيع
                     .background(Color.white.opacity(0.9))
                     .cornerRadius(12)
                     .padding(.horizontal, 24)
                     .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                 
-                // Password Field
+                // Password Field (توسيع البوكس فقط)
                 HStack {
                     if isPasswordVisible {
                         TextField("Enter your password", text: $password)
@@ -57,19 +78,20 @@ struct LogInView: View {
                     }
                 }
                 .padding()
+                .frame(maxWidth: .infinity) // ✅ التوسيع
                 .background(Color.white.opacity(0.9))
                 .cornerRadius(12)
                 .padding(.horizontal, 24)
                 .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                 
-                // Login Button
+                // Login Button (توسيع البوكس فقط)
                 Button {
                     // API Login action here
                 } label: {
                     Text("Login")
                         .foregroundColor(.white)
                         .font(.system(size: 20, weight: .semibold))
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity) // ✅ التوسيع
                         .padding()
                         .background(Color(red: 28/255, green: 33/255, blue: 77/255))
                         .cornerRadius(16)
@@ -80,8 +102,6 @@ struct LogInView: View {
                 Spacer()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white.opacity(0.1)) // للحماية لو الخلفية ما غطت كامل الشاشة
     }
 }
 
