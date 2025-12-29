@@ -22,11 +22,11 @@ struct LogInView: View {
 
             VStack(spacing: 0) {
 
-                // Top background image (blended)
+                // Background Image merged with white
                 Image("Background")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 460, height: 500)
+                    .frame(width: 390, height: 398)
                     .clipped()
                     .overlay(
                         LinearGradient(
@@ -41,28 +41,38 @@ struct LogInView: View {
 
                 Spacer()
             }
+            .offset(y: -60)
             
             VStack(alignment: .leading, spacing: 20) {
                 
-                Spacer().frame(height: 100)
+                Spacer().frame(height: 50)
                 
-                // Title
-                Text("Welcome back! Glad to see you, Again!")
-                    .font(.system(size: 28, weight: .bold))
-                    .foregroundColor(Color.orange)
+                // ✅ Title مطابق للصورة + سبيس واضح
+                Text("Welcome back! Glad\nto see you, Again!")
+                    .font(.system(size: 34, weight: .bold))
+                    .foregroundColor(
+                        Color(red: 212/255, green: 94/255, blue: 57/255) // #D45E39
+                    )
+                    .lineSpacing(6)
                     .padding(.horizontal, 24)
-                    .multilineTextAlignment(.leading)
                 
-                // Job Number Field (توسيع البوكس فقط)
+                // ✅ السبيس الواضح تحت العنوان (مثل Figma)
+                Spacer().frame(height: 1)
+                
+                // Job Number Field
                 TextField("Enter your job number", text: $jobNumber)
-                    .padding()
-                    .frame(maxWidth: .infinity) // ✅ التوسيع
-                    .background(Color.white.opacity(0.9))
-                    .cornerRadius(12)
+                    .padding(.horizontal, 16)
+                    .frame(width: 358, height: 56)
+                    .background(Color.white)
+                    .cornerRadius(7)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.18), lineWidth: 1)
+                    )
+                    .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 2)
                     .padding(.horizontal, 24)
-                    .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                 
-                // Password Field (توسيع البوكس فقط)
+                // Password Field
                 HStack {
                     if isPasswordVisible {
                         TextField("Enter your password", text: $password)
@@ -75,29 +85,35 @@ struct LogInView: View {
                     } label: {
                         Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
                             .foregroundColor(.gray)
+                            .padding(.trailing, 4)
                     }
                 }
-                .padding()
-                .frame(maxWidth: .infinity) // ✅ التوسيع
-                .background(Color.white.opacity(0.9))
-                .cornerRadius(12)
+                .padding(.horizontal, 16)
+                .frame(width: 358, height: 56)
+                .background(Color.white)
+                .cornerRadius(7)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.18), lineWidth: 1)
+                )
+                .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 2)
                 .padding(.horizontal, 24)
-                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                 
-                // Login Button (توسيع البوكس فقط)
+                // Login Button
                 Button {
                     // API Login action here
                 } label: {
                     Text("Login")
                         .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .semibold))
-                        .frame(maxWidth: .infinity) // ✅ التوسيع
-                        .padding()
-                        .background(Color(red: 28/255, green: 33/255, blue: 77/255))
-                        .cornerRadius(16)
-                        .padding(.horizontal, 24)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                        .font(.system(size: 18, weight: .semibold))
+                        .frame(width: 358, height: 50)
+                        .background(
+                            Color(red: 35/255, green: 36/255, blue: 85/255) // #232455
+                        )
+                        .cornerRadius(10)
                 }
+                .padding(.horizontal, 24)
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                 
                 Spacer()
             }
